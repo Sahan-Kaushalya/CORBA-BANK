@@ -1,0 +1,10 @@
+module Banking{
+
+    interface Account{
+        string getBankName(in string accountNo);
+        void deposit(in string accountNo, in double amount);
+        void withdraw(in string accountNo, in double amount) raises (InsufficientBalance);
+        double getBalance( in string accountNo);
+    };
+
+};
