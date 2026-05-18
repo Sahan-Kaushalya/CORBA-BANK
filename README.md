@@ -35,6 +35,13 @@ When you compile the `Banking.idl` file, it generates several Java classes in th
 *   **`InsufficientBalance.java`**: The Java exception class generated from the IDL `raises (InsufficientBalance)` declaration.
 *   **`InsufficientBalanceHelper.java` & `InsufficientBalanceHolder.java`**: Helper and holder classes for the exception.
 
+### Server Implementation
+The server side is implemented in `src/main/java/lk/kaushalya/bcd/server/AccountImpl.java`. This class extends `AccountPOA` and provides the actual logic for the banking operations:
+*   Maintains an in-memory hash map (`db`) of account numbers and their balances.
+*   Provides initial dummy data (e.g., account "001123" has LKR 1000.0).
+*   Resolves bank names based on the first 3 digits of the account number (e.g., "001" is Bank of Ceylon).
+*   Handles deposit and withdrawal logic, including throwing an `InsufficientBalance` exception if a withdrawal cannot be completed.
+
 ## Basic Terminal Commands
 If you are new to using the terminal or command prompt, here are a few essential commands you will need:
 
