@@ -45,6 +45,8 @@ public class AccountImpl extends AccountPOA {
         double currentBalance = db.getOrDefault(accountNo,0.0);
         db.put(accountNo, currentBalance + amount);
         System.out.println("Server Log: LKR "+amount+" deposited to account "+accountNo);
+        System.out.println("Server Log: Current balance is LKR "+(currentBalance + amount)+" in account "+accountNo+"" +
+                "\n - "+getBankName(accountNo)+" -");
     }
 
     @Override
@@ -53,16 +55,22 @@ public class AccountImpl extends AccountPOA {
 
         if(db.get(accountNo) <= 1000) {
             System.out.println("Server Log: Warning! Low balance in account " + accountNo);
+            System.out.println("Server Log: Current balance is LKR " + currentBalance + " in account " + accountNo+"" +
+                    "\n - "+getBankName(accountNo)+" -");
             return;
         }
 
          if(currentBalance <= amount + 5){
              System.out.println("Server Log: Failed to withdraw requested amount from account "+accountNo);
+             System.out.println("Server Log: Current balance is LKR "+currentBalance+" in account "+accountNo+"" +
+                     "\n - "+getBankName(accountNo)+" -");;
              throw new InsufficientBalance("Transaction Denied: Insufficient balance in account "+accountNo);
          }
 
          db.put(accountNo, currentBalance - amount);
          System.out.println("Server Log: LKR "+amount+" withdrawn from account "+accountNo);
+         System.out.println("Server Log: Current balance is LKR "+(currentBalance - amount)+" in account "+accountNo+"" +
+                 "\n - "+getBankName(accountNo)+" -");
 
     }
 
