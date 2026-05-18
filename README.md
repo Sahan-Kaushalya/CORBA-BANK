@@ -19,6 +19,15 @@ module Banking{
 };
 ```
 
+## Basic Terminal Commands
+If you are new to using the terminal or command prompt, here are a few essential commands you will need:
+
+*   **`pwd`** (Print Working Directory): Shows the full path of the directory you are currently in.
+*   **`ls`** (List): Lists the files and folders in your current directory. Use `ls -l` for a more detailed view. On Windows PowerShell, `ls` or `dir` works.
+*   **`cd <directory_name>`** (Change Directory): Moves you into a different folder.
+    *   Example: `cd src` moves you into the `src` folder.
+    *   Example: `cd ..` moves you up one level to the parent folder.
+
 ## Prerequisites
 * **Java Development Kit (JDK) 8**. Newer versions of Java have removed the CORBA modules.
 * Apache Maven
@@ -63,6 +72,9 @@ javac -version
     ```bash
     # Navigate to the directory containing the IDL file
     cd src/main/java/lk/kaushalya/bcd
+
+    # List the files to ensure you see Banking.idl
+    ls
 
     # Run the IDL compiler
     idlj -fall Banking.idl
