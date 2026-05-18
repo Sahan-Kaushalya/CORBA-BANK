@@ -6,10 +6,15 @@ This is a simple Banking application demonstrating the use of Common Object Requ
 This is a standard Java Maven project.
 
 ### IDL Definition
-The core of the application is defined in the `src/main/java/lk/kaushalya/bcd/Banking.idl` file, which specifies the `Account` interface:
+The core of the application is defined in the `src/main/java/Banking.idl` file, which specifies the `Account` interface:
 
 ```idl
 module Banking{
+
+    exception InsufficientBalance{
+        string message;
+    };
+    
     interface Account{
         string getBankName(in string accountNo);
         void deposit(in string accountNo, in double amount);
@@ -18,6 +23,17 @@ module Banking{
     };
 };
 ```
+
+### Generated CORBA Files
+When you compile the `Banking.idl` file, it generates several Java classes in the `src/main/java/Banking` package to handle the CORBA communication. These include:
+
+*   **`Account.java`**: The Java interface mapping for the IDL `Account` interface.
+*   **`AccountOperations.java`**: The interface containing the methods defined in the IDL (`getBankName`, `deposit`, `withdraw`, `getBalance`).
+*   **`AccountPOA.java`**: The Portable Object Adapter (POA) skeleton class that your server implementation must extend.
+*   **`_AccountStub.java`**: The stub class used by the client to communicate with the server.
+*   **`AccountHelper.java` & `AccountHolder.java`**: Helper and holder classes used for type casting and passing parameters in CORBA.
+*   **`InsufficientBalance.java`**: The Java exception class generated from the IDL `raises (InsufficientBalance)` declaration.
+*   **`InsufficientBalanceHelper.java` & `InsufficientBalanceHolder.java`**: Helper and holder classes for the exception.
 
 ## Basic Terminal Commands
 If you are new to using the terminal or command prompt, here are a few essential commands you will need:
@@ -68,10 +84,10 @@ javac -version
 
 ## Building the Project
 
-1.  **Compile the IDL.** From the `src/main/java/lk/kaushalya/bcd` directory, run the `idlj` tool to generate the Java stubs and skeletons.
+1.  **Compile the IDL.** From the `src/main/java` directory, run the `idlj` tool to generate the Java stubs and skeletons.
     ```bash
     # Navigate to the directory containing the IDL file
-    cd src/main/java/lk/kaushalya/bcd
+    cd src/main/java
 
     # List the files to ensure you see Banking.idl
     ls
@@ -79,11 +95,12 @@ javac -version
     # Run the IDL compiler
     idlj -fall Banking.idl
     ```
+    *(Note: This step generates the files in the `Banking` package mentioned above.)*
 
 2.  **Build with Maven.** Navigate back to the project root and build with Maven.
     ```bash
     # Go back to the project root
-    cd ../../../../..
+    cd ../../..
 
     # Build the project
     mvn clean install
