@@ -1,5 +1,9 @@
 module Banking{
 
+    exception InsufficientBalance{
+            string message;
+    };
+
     interface Account{
         string getBankName(in string accountNo);
         void deposit(in string accountNo, in double amount);
