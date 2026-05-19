@@ -17,9 +17,9 @@ public class ATMClient {
 
             Account account = AccountHelper.narrow(ncRef.resolve_str("BankAccount"));
 
-            System.out.println("\n=======================================================");
-            System.out.println("                CORBA Banking System                    ");
-            System.out.println("=======================================================");
+            System.out.println("\n===========================================================================\"");
+            System.out.println("                            CORBA Banking System                    ");
+            System.out.println("===========================================================================\"");
             System.out.println("\n");
 
             Scanner sc = new Scanner(System.in);
