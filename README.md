@@ -36,11 +36,33 @@ When you compile the `Banking.idl` file, it generates several Java classes in th
 *   **`InsufficientBalanceHelper.java` & `InsufficientBalanceHolder.java`**: Helper and holder classes for the exception.
 
 ### Server Implementation
-The server side is implemented in `src/main/java/lk/kaushalya/bcd/server/AccountImpl.java`. This class extends `AccountPOA` and provides the actual logic for the banking operations:
-*   Maintains an in-memory hash map (`db`) of account numbers and their balances.
-*   Provides initial dummy data (e.g., account "001123" has LKR 1000.0).
-*   Resolves bank names based on the first 3 digits of the account number (e.g., "001" is Bank of Ceylon).
-*   Handles deposit and withdrawal logic, including throwing an `InsufficientBalance` exception if a withdrawal cannot be completed.
+The server side is implemented in `src/main/java/lk/kaushalya/bcd/server/`:
+*   **`AccountImpl.java`**: This class extends `AccountPOA` and provides the actual logic for the banking operations:
+    *   Maintains an in-memory hash map (`db`) of account numbers and their balances.
+    *   Provides initial dummy data (e.g., account "001123" has LKR 1000.0).
+    *   Resolves bank names based on the first 3 digits of the account number (e.g., "001" is Bank of Ceylon).
+    *   Handles deposit and withdrawal logic, including throwing an `InsufficientBalance` exception if a withdrawal cannot be completed.
+*   **`BankServer.java`**: The main class that initializes the ORB (Object Request Broker), registers the `AccountImpl` object with the Naming Service under the name `BankAccount`, and waits for incoming client requests.
+
+### Client Implementation
+The client side is implemented in `src/main/java/lk/kaushalya/bcd/client/ATMClient.java`. 
+It provides an interactive console application that connects to the `BankAccount` object registered in the CORBA Naming Service. 
+
+When you run the client, it will prompt you for an account ID (e.g., `001123`, `002123`, `003123`). After entering a valid account ID, you are presented with a menu:
+
+```text
+Enter Your Account ID : 
+001123
+
+1. Get Bank Name | 2. Deposit | 3. Withdraw | 4. Get Balance | 5. Exit
+```
+
+You can then input a number (1-5) to interact with the server:
+1.  **Get Bank Name**: Retrieves the bank name associated with the account prefix.
+2.  **Deposit**: Prompts for an amount to add to the account balance.
+3.  **Withdraw**: Prompts for an amount to remove from the account balance (may throw an error if the balance is too low).
+4.  **Get Balance**: Displays the current balance in LKR.
+5.  **Exit**: Closes the ATM client.
 
 ## Basic Terminal Commands
 If you are new to using the terminal or command prompt, here are a few essential commands you will need:
@@ -115,13 +137,19 @@ javac -version
 
 ## Running the Application
 
-*(Note: Provide specific instructions here depending on your Main class names)*
-
-1.  Start the `orbd` (Object Request Broker Daemon) service from your terminal:
+1.  **Start the `orbd`** (Object Request Broker Daemon) service from your terminal. This is required for the Naming Service.
     ```bash
     orbd -ORBInitialPort 1050 -ORBInitialHost localhost
     ```
 
-2.  In a **new terminal**, start the CORBA Server.
+2.  **Start the CORBA Server.** Open a **new terminal**, navigate to your project root (or compiled classes directory), and run the server. (Make sure your CLASSPATH is set correctly, or use Maven `exec:java` if configured).
+    ```bash
+    # Example using java command directly from compiled classes
+    # java -cp target/classes lk.kaushalya.bcd.server.BankServer -ORBInitialPort 1050 -ORBInitialHost localhost
+    ```
 
-3.  In another **new terminal**, run the CORBA Client to interact with the bank account.
+3.  **Run the CORBA Client.** Open another **new terminal** and run your client class to interact with the bank account.
+    ```bash
+    # Example using java command directly from compiled classes
+    # java -cp target/classes lk.kaushalya.bcd.client.ATMClient -ORBInitialPort 1050 -ORBInitialHost localhost
+    ```
