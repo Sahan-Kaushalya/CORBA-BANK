@@ -48,13 +48,21 @@ The server side is implemented in `src/main/java/lk/kaushalya/bcd/server/`:
 The client side is implemented in `src/main/java/lk/kaushalya/bcd/client/ATMClient.java`. 
 It provides an interactive console application that connects to the `BankAccount` object registered in the CORBA Naming Service. 
 
-When you run the client, it will prompt you for an account ID (e.g., `001123`, `002123`, `003123`). After entering a valid account ID, you are presented with a menu:
+When you run the client, it will display a welcome banner and prompt you for an account ID (e.g., `001123`, `002123`). After entering a valid account ID, you are presented with a menu:
 
 ```text
+=======================================================
+                CORBA Banking System                    
+=======================================================
+
+
 Enter Your Account ID : 
 001123
 
+
+===========================================================================
 1. Get Bank Name | 2. Deposit | 3. Withdraw | 4. Get Balance | 5. Exit
+===========================================================================
 ```
 
 You can then input a number (1-5) to interact with the server:
