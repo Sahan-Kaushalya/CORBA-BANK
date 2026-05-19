@@ -29,7 +29,9 @@ public class ATMClient {
             boolean running = true;
             while (running) {
                 System.out.println("\n");
+                System.out.println("===========================================================================");
                 System.out.println("1. Get Bank Name | 2. Deposit | 3. Withdraw | 4. Get Balance | 5. Exit");
+                System.out.println("===========================================================================");
                 int choice = sc.nextInt();
 
                 switch (choice) {
