@@ -47,7 +47,7 @@ public class ATMClient {
                         System.out.println("\n====================================");
                         System.out.println("         Deposit successful.");
                         System.out.println("====================================");
-                        System.out.println("Current balance is LKR "+(account.getBalance(accountNo) + depositAmount)+" in account "+accountNo+"" +
+                        System.out.println("Current balance is LKR "+account.getBalance(accountNo) +" in account "+accountNo+"" +
                                 "\n - "+account.getBankName(accountNo)+" -");
                         break;
 
@@ -61,7 +61,7 @@ public class ATMClient {
                            System.out.println("\n====================================");
                            System.out.println("         Withdraw successful.");
                            System.out.println("====================================");
-                           System.out.println("Current balance is LKR "+(account.getBalance(accountNo) - withdrawAmount)+" in account "+accountNo+"" +
+                           System.out.println("Current balance is LKR "+account.getBalance(accountNo) + " in account "+accountNo+"" +
                                    "\n - "+account.getBankName(accountNo)+" -\n");
                        }catch (Exception e) {
                            System.out.println("\n====================================");
