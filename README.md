@@ -134,7 +134,14 @@ javac -version
     ```
     *(Note: This step generates the files in the `Banking` package mentioned above.)*
 
-2.  **Build with Maven.** Navigate back to the project root and build with Maven.
+2.  **Compile All Java Files.** From the `src/main/java` directory, compile all the generated files, the server code, and the client code in one command.
+    ```bash
+    # From the src/main/java directory
+    javac Banking/*.java lk/kaushalya/bcd/client/*.java lk/kaushalya/bcd/server/*.java
+    ```
+    *(Note: You may see a warning like "Note: Banking/AccountPOA.java uses unchecked or unsafe operations." This is expected with CORBA's generated code and can be ignored.)*
+
+3.  **Build with Maven.** Navigate back to the project root and build with Maven.
     ```bash
     # Go back to the project root
     cd ../../..
