@@ -17,10 +17,9 @@ public class ATMClient {
 
             Account account = AccountHelper.narrow(ncRef.resolve_str("BankAccount"));
 
-            System.out.println("\n===========================================================================\"");
+            System.out.println("\n===========================================================================");
             System.out.println("                            CORBA Banking System                    ");
-            System.out.println("===========================================================================\"");
-            System.out.println("\n");
+            System.out.println("===========================================================================");
 
             Scanner sc = new Scanner(System.in);
             System.out.println("Enter Your Account ID : ");
@@ -44,18 +43,34 @@ public class ATMClient {
                         System.out.println("\nEnter amount to deposit: ");
                         double depositAmount = sc.nextDouble();
                         account.deposit(accountNo, depositAmount);
+                        System.out.println("LKR "+depositAmount+" deposited to account "+accountNo);
                         System.out.println("\n====================================");
                         System.out.println("         Deposit successful.");
                         System.out.println("====================================");
+                        System.out.println("Current balance is LKR "+(account.getBalance(accountNo) + depositAmount)+" in account "+accountNo+"" +
+                                "\n - "+account.getBankName(accountNo)+" -");
                         break;
 
                     case 3:
                         System.out.println("\nEnter amount to withdraw: ");
                         double withdrawAmount = sc.nextDouble();
-                        account.withdraw(accountNo, withdrawAmount);
-                        System.out.println("\n====================================");
-                        System.out.println("         Withdraw successful.");
-                        System.out.println("====================================");
+
+                       try{
+                           account.withdraw(accountNo, withdrawAmount);
+                           System.out.println("LKR "+withdrawAmount+" withdrawn from account "+accountNo);
+                           System.out.println("\n====================================");
+                           System.out.println("         Withdraw successful.");
+                           System.out.println("====================================");
+                           System.out.println("Current balance is LKR "+(account.getBalance(accountNo) - withdrawAmount)+" in account "+accountNo+"" +
+                                   "\n - "+account.getBankName(accountNo)+" -\n");
+                       }catch (Exception e) {
+                           System.out.println("\n====================================");
+                           System.out.println("         Withdrawal failed.");
+                           System.out.println("====================================");
+                           System.out.println("Reason: " + e.getMessage());
+                           System.out.println("Current balance is LKR " + account.getBalance(accountNo) + " in account " + accountNo + "" +
+                                   "\n - " + account.getBankName(accountNo) + " -");
+                       }
                         break;
 
                     case 4:
