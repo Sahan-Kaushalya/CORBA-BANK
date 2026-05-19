@@ -28,9 +28,9 @@ public class BankServer {
             NameComponent path[] = ncRef.to_name(name);
             ncRef.rebind(path, accountRef);
 
-            System.out.println("\n=======================================================");
-            System.out.println("                CORBA Banking System                    ");
-            System.out.println("=======================================================");
+            System.out.println("\n===========================================================================");
+            System.out.println("                    CORBA Banking System - Bank Server                   ");
+            System.out.println("===========================================================================");
             System.out.println("\nServer Log: Bank Server is ready and waiting for client requests...");
 
             orb.run();
